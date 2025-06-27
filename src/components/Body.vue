@@ -75,7 +75,7 @@ export default {
   },
   data () {
     return {
-      endpoint: 'wss://hooks-testnet-v3.xrpl-labs.com'
+      endpoint: 'wss://xahau-test.net'
     }
   },
   async mounted () {
