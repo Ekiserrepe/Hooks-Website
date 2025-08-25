@@ -13,7 +13,8 @@ export default defineConfig({
   publicDir: 'public',
   define: {
     global: 'globalThis',
-    'process.env': {}
+    'process.env': {},
+    'assert': {}
   },
   resolve: {
     alias: {

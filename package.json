@@ -10,6 +10,7 @@
     "lint": "eslint src --ext .vue,.js,.ts"
   },
   "dependencies": {
+    "assert": "^2.1.0",
     "buffer": "^6.0.3",
     "core-js": "^3.6.5",
     "process": "^0.11.10",
