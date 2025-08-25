@@ -1,7 +1,7 @@
 <template>
   <div class="card-modern">
     <div class="card-header-modern flex justify-between items-center">
-      <div class="flex items-center space-x-2">
+      <div class="flex items-center space-x-2 flex-wrap">
         <h3 class="font-semibold">Testnet Status</h3>
         <div class="flex items-center space-x-1">
           <div class="w-2 h-2 rounded-full" 
@@ -12,10 +12,11 @@
         </div>
       </div>
       <button @click="copyLedgerInfo" 
-              class="btn-secondary-modern text-xs bg-white/20 hover:bg-white/30 border-white/30"
+              class="btn-secondary-modern text-xs bg-white/20 hover:bg-white/30 border-white/30 flex-shrink-0"
               :disabled="ledgerInfo === 'Connecting...'">
         <i class="fas fa-copy mr-1"></i>
-        Copy JSON
+        <span class="hidden sm:inline">Copy JSON</span>
+        <span class="sm:hidden">Copy</span>
       </button>
     </div>
     

@@ -12,22 +12,27 @@
           </span>
         </div>
         
-        <div class="hidden md:flex items-center space-x-3">
-          <a href="https://xahau.network" 
-             target="_blank" 
-             class="btn-warning-modern text-sm">
-            Official Website
-          </a>
-          <a href="https://github.com/XRPL-Labs/xrpld-hooks/blob/hooks-ssvm/README.md" 
-             target="_blank" 
-             class="btn-primary-modern text-sm">
-            Xahau Discord
-          </a>
-          <a href="https://x.com/xahaunetwork" 
-             target="_blank" 
-             class="btn-primary-modern text-sm">
-            X/Twitter
-          </a>
+        <div class="flex items-center space-x-3">
+          <!-- Desktop buttons (hidden on mobile) -->
+          <div class="hidden md:flex items-center space-x-3">
+            <a href="https://xahau.network" 
+               target="_blank" 
+               class="btn-warning-modern text-sm">
+              Official Website
+            </a>
+            <a href="https://discord.gg/ds7nb93mYj" 
+               target="_blank" 
+               class="btn-primary-modern text-sm">
+              Xahau Discord
+            </a>
+            <a href="https://x.com/xahaunetwork" 
+               target="_blank" 
+               class="btn-primary-modern text-sm">
+              X/Twitter
+            </a>
+          </div>
+          
+          <!-- Theme toggle (always visible) -->
           <button @click="toggleTheme" 
                   class="btn-secondary-modern p-2">
             <i class="fas" :class="isDark ? 'fa-sun' : 'fa-moon'"></i>
