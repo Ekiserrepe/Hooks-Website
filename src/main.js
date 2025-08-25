@@ -1,10 +1,6 @@
-import Vue from 'vue'
-import VueClipboard from 'vue-clipboard2'
+import { createApp } from 'vue'
 import App from './App.vue'
+import './style/main.css'
 
-Vue.use(VueClipboard)
-Vue.config.productionTip = false
-
-new Vue({
-  render: h => h(App)
-}).$mount('#app')
+const app = createApp(App)
+app.mount('#app')

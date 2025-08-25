@@ -1,20 +1,42 @@
-# Hooks Amendment website
+# Xahau Testnet Faucet
 
-Hooks Testnet by XRPL Labs.
-Runs on: https://hooks-testnet.xrpl-labs.com
+A modern Vue 3 + Vite application for the Xahau Testnet, providing faucet services and network monitoring.
 
-Hooks are small, efficient WebAssembly modules designed specifically for the XRPL. Hooks can be written in any language (compilable to WebAssembly) and most business logic and most smart contract concepts can be implemented in a hook. Development by [XRPL Labs](https://xrpl-labs.com)
+Hooks are small, efficient WebAssembly modules designed specifically for Xahau. Development by [XRPL Labs](https://xrpl-labs.com)
 
-- https://xrpl-hooks.readme.io
-- https://hooks-testnet-v2.xrpl-labs.com
+## Quick Start
 
-## VueJS Project setup/... 
-```
+```bash
+# Install dependencies
 npm install
-npm run serve # Locally
+
+# Start development server (recommended)
+npm run dev
+
+# Alternative development command
+npm run serve
 ```
 
-### Compiles and minifies for production (`/dist`)
+The application will be available at `http://localhost:8080`
+
+## Available Scripts
+
+```bash
+# Development
+npm run dev          # Start Vite dev server
+npm run serve        # Alternative dev command
+
+# Production
+npm run build        # Build for production
+npm run preview      # Preview production build
+
+# Code Quality
+npm run lint         # Run ESLint
 ```
-npm run build
-```
+
+
+## Links
+
+- [Xahau Documentation](https://docs.xahau.network/)
+- [Hooks Builder](https://builder.xahau.network)
+- [Technical Explorer](https://explorer.xahau-test.net/)

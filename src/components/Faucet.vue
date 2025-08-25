@@ -1,103 +1,202 @@
 <template>
-  <div class="card border-0">
-    <h6 class="card-header bg-white rounded-0 border-0 nes blue">
-      Hooks<sup class="bg-warning text-dark px-1"><small>Testnet</small></sup>
-      Faucet</h6>
-    <div class="card-body py-3 pt-1 bg-blue">
-      <button @click="getSome" v-if="faucet.Address !== '-'" style="margin-top: -2px" class="nes-btn is-primary copy d-inline-block py-0 nes">Again</button>
-      <div class="">
-        <div v-if="error !== ''" class="col-12">
-          <p class="text-center alert alert-danger px-2 py-1 mt-2 mb-2 shadow-sm rounded-0">{{ error[0].toUpperCase() + error.slice(1) }}</p>
+  <div class="card-modern">
+    <div class="card-header-modern flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <h3 class="font-semibold">Xahau Faucet</h3>
+        <span class="badge-warning-modern">Testnet</span>
+      </div>
+      <button v-if="faucet.Address !== '-'" 
+              @click="getSome" 
+              class="btn-primary-modern text-sm bg-white/20 hover:bg-white/30 border-white/30">
+        <i class="fas fa-redo mr-1"></i>
+        Get Again
+      </button>
+    </div>
+    
+    <div class="card-body-modern">
+      <!-- Error Message -->
+      <div v-if="error !== ''" 
+           class="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+        <div class="flex items-center">
+          <i class="fas fa-exclamation-triangle text-red-400 mr-2"></i>
+          <p class="text-red-700 dark:text-red-300 text-sm">{{ error[0].toUpperCase() + error.slice(1) }}</p>
         </div>
-        <div v-if="faucet.Address === '-'" class="text-center"><button @click="getSome" class="nes-btn py-0 my-3 mt-4 nes btn-lg">Get Some</button></div>
-        <div v-if="faucet.Address !== '-'" class="row">
-
-          <div class="pt-2 col-12 col-sm-4 col-lg-3 col-xl-3 border-0 nes"><small><small>Address</small></small></div>
-          <div class="pt-2 col-9 col-sm-5 col-lg-6 col-xl-7 border-0 ps-3"><div class="no-overflow"><a class="text-white" :href="link(faucet.Address)" target="_blank">{{ faucet.Address }}</a></div></div>
-          <div class="pt-2 col-3 col-sm-3 col-lg-3 col-xl-2 text-end border-0"><button v-clipboard:copy="faucet.Address" class="nes-btn is-normal copy local d-inline-block py-0 ms-0 mr-2 my-0 nes">Copy</button></div>
-
-          <div class="pt-2 col-12 col-sm-4 col-lg-3 col-xl-3 border-0 nes"><small><small>Secret</small></small></div>
-          <div class="pt-2 col-9 col-sm-5 col-lg-6 col-xl-7 border-0 ps-3"><div class="no-overflow">{{ faucet.Secret }}</div></div>
-          <div class="pt-2 col-3 col-sm-3 col-lg-3 col-xl-2 text-end border-0"><button v-clipboard:copy="faucet.Secret" class="nes-btn is-normal copy local d-inline-block py-0 ms-0 mr-2 my-0 nes">Copy</button></div>
-
-          <div class="pt-2 col-12 col-sm-4 col-lg-3 col-xl-3 border-0 nes"><small><small>TX</small></small></div>
-          <div class="pt-2 col-9 col-sm-5 col-lg-6 col-xl-7 border-0 ps-3"><div class="no-overflow"><a class="text-white" :href="link(faucet.TX)" target="_blank">{{ faucet.TX }}</a></div></div>
-          <div class="pt-2 col-3 col-sm-3 col-lg-3 col-xl-2 text-end border-0"><button v-clipboard:copy="faucet.TX" class="nes-btn is-normal copy local d-inline-block py-0 ms-0 mr-2 my-0 nes">Copy</button></div>
-
-          <div class="pt-2 col-12 col-sm-4 col-lg-3 col-xl-3 border-0 nes"><small><small>XAH</small></small></div>
-          <div class="pt-2 col-9 col-sm-5 col-lg-6 col-xl-7 border-0 ps-3"><div class="no-overflow">{{ faucet.XRP }}</div></div>
-          <div class="pt-2 col-3 col-sm-3 col-lg-3 col-xl-2 text-end border-0"></div>
-
-          <div class="pt-2 col-12 col-sm-4 col-lg-3 col-xl-3 border-0 nes"><small><small>Result</small></small></div>
-          <div class="pt-2 col-9 col-sm-5 col-lg-6 col-xl-7 border-0 ps-3"><div class="no-overflow">{{ faucet.Result }}</div></div>
-          <div class="pt-2 col-3 col-sm-3 col-lg-3 col-xl-2 text-end border-0"></div>
-
-          <div class="pt-2 col-12 col-sm-4 col-lg-3 col-xl-3 border-0 nes"><small><small>Debuglog</small></small></div>
-          <div class="pt-2 col-9 col-sm-5 col-lg-6 col-xl-7 border-0 ps-3"><div class="no-overflow"><a :href="'https://xahau-test.net/debugstream/' + faucet.Address + '/'" target="_blank" class="text-white">wss://xahau.../debugstream/{{ faucet.Address }}</a></div></div>
-          <div class="pt-2 col-3 col-sm-3 col-lg-3 col-xl-2 text-end border-0"><button v-clipboard:copy="'wss://xahau-test.net/debugstream/' + faucet.Address + '/'" class="nes-btn is-normal copy local d-inline-block py-0 ms-0 mr-2 my-0 nes">Copy</button></div>
-
+      </div>
+      
+      <!-- Get Funds Button -->
+      <div v-if="faucet.Address === '-'" class="text-center">
+        <button @click="getSome" 
+                class="btn-primary-modern text-lg px-8 py-3">
+          <i class="fas fa-coins mr-2"></i>
+          Get Testnet Funds
+        </button>
+        <p class="text-gray-500 dark:text-gray-400 text-sm mt-2">
+          Click to generate a new testnet account with funds
+        </p>
+      </div>
+      
+      <!-- Account Details -->
+      <div v-if="faucet.Address !== '-'" class="space-y-4">
+        
+        <!-- Address -->
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+          <div class="flex justify-between items-start mb-2">
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Address</label>
+            <button @click="copyText(faucet.Address)" 
+                    class="btn-secondary-modern text-xs">
+              <i class="fas fa-copy mr-1"></i>
+              Copy
+            </button>
+          </div>
+          <a :href="link(faucet.Address)" 
+             target="_blank" 
+             class="block font-mono text-sm text-xahau-blue hover:text-xahau-blue-light break-all">
+            {{ faucet.Address }}
+            <i class="fas fa-external-link-alt ml-1 text-xs"></i>
+          </a>
         </div>
+        
+        <!-- Secret -->
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+          <div class="flex justify-between items-start mb-2">
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Secret</label>
+            <button @click="copyText(faucet.Secret)" 
+                    class="btn-secondary-modern text-xs">
+              <i class="fas fa-copy mr-1"></i>
+              Copy
+            </button>
+          </div>
+          <div class="font-mono text-sm text-gray-900 dark:text-gray-100 break-all bg-yellow-50 dark:bg-yellow-900/20 p-2 rounded border-l-4 border-yellow-400">
+            {{ faucet.Secret }}
+          </div>
+        </div>
+        
+        <!-- Transaction Hash -->
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+          <div class="flex justify-between items-start mb-2">
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Transaction</label>
+            <button @click="copyText(faucet.TX)" 
+                    class="btn-secondary-modern text-xs">
+              <i class="fas fa-copy mr-1"></i>
+              Copy
+            </button>
+          </div>
+          <a :href="link(faucet.TX)" 
+             target="_blank" 
+             class="block font-mono text-sm text-xahau-blue hover:text-xahau-blue-light break-all">
+            {{ faucet.TX }}
+            <i class="fas fa-external-link-alt ml-1 text-xs"></i>
+          </a>
+        </div>
+        
+        <!-- Balance and Result -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bg-green-50 dark:bg-green-900/20 rounded-lg p-4">
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1">XAH Balance</label>
+            <div class="text-lg font-semibold text-green-600 dark:text-green-400">
+              <i class="fas fa-coins mr-1"></i>
+              {{ faucet.XRP }} XAH
+            </div>
+          </div>
+          
+          <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1">Status</label>
+            <div class="text-lg font-semibold text-blue-600 dark:text-blue-400">
+              <i class="fas fa-check-circle mr-1"></i>
+              {{ faucet.Result }}
+            </div>
+          </div>
+        </div>
+        
+        <!-- Debug Stream -->
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+          <div class="flex justify-between items-start mb-2">
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Debug Stream</label>
+            <button @click="copyText('wss://xahau-test.net/debugstream/' + faucet.Address + '/')" 
+                    class="btn-secondary-modern text-xs">
+              <i class="fas fa-copy mr-1"></i>
+              Copy
+            </button>
+          </div>
+          <a :href="'https://xahau-test.net/debugstream/' + faucet.Address + '/'" 
+             target="_blank" 
+             class="block font-mono text-sm text-xahau-blue hover:text-xahau-blue-light break-all">
+            wss://xahau-test.net/debugstream/{{ faucet.Address }}/
+            <i class="fas fa-external-link-alt ml-1 text-xs"></i>
+          </a>
+        </div>
+        
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'Faucet',
-  components: {
-  },
-  data () {
-    return {
-      error: '',
-      faucet: {
-        Address: '-',
-        Secret: '-',
-        XRP: 0,
-        TX: '-',
-        Result: '-'
-      }
-    }
-  },
-  methods: {
-    link (data) {
-      return 'https://explorer.xahau-test.net/' + data
-    },
-    async getSome () {
-      const cors = process.env.NODE_ENV.match(/dev/i)
-        ? 'https://cors-anywhere.herokuapp.com/'
-        : ''
-      const call = await window.fetch(cors + 'https://xahau-test.net/newcreds', { method: 'POST' })
-      const data = await call.json()
+import { defineComponent, ref } from 'vue'
 
-      if (typeof data?.error !== 'undefined') {
-        this.error = data.error
-      } else {
-        this.error = ''
-        this.faucet.Address = data.address
-        this.faucet.Secret = data.secret
-        this.faucet.XRP = data.xrp
-        this.faucet.TX = data.hash
-        this.faucet.Result = data.code
+export default defineComponent({
+  name: 'Faucet',
+  setup() {
+    const error = ref('')
+    const faucet = ref({
+      Address: '-',
+      Secret: '-',
+      XRP: 0,
+      TX: '-',
+      Result: '-'
+    })
+
+    const link = (data) => {
+      return 'https://explorer.xahau-test.net/' + data
+    }
+
+    const copyText = async (text) => {
+      try {
+        await navigator.clipboard.writeText(text)
+      } catch (err) {
+        console.error('Failed to copy:', err)
       }
     }
-  },
-  async mounted () {
+
+    const getSome = async () => {
+      try {
+        const call = await window.fetch('https://xahau-test.net/newcreds', { 
+          method: 'POST'
+        })
+        
+        if (!call.ok) {
+          throw new Error(`HTTP error! status: ${call.status}`)
+        }
+        
+        const data = await call.json()
+
+        if (typeof data?.error !== 'undefined') {
+          error.value = data.error
+        } else {
+          error.value = ''
+          faucet.value.Address = data.address
+          faucet.value.Secret = data.secret
+          faucet.value.XRP = data.xrp
+          faucet.value.TX = data.hash
+          faucet.value.Result = data.code
+        }
+      } catch (err) {
+        console.error('Faucet request failed:', err)
+        error.value = 'Failed to get testnet funds. Please try again later.'
+      }
+    }
+
+    return {
+      error,
+      faucet,
+      link,
+      copyText,
+      getSome
+    }
   }
-}
+})
 </script>
 
-<style lang="scss" scoped>
-  button.copy.local {
-    font-size: .5em;
-    position: relative;
-    right: 0;
-    top: 0;
-  }
-  .no-overflow {
-    display: block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
+<style scoped>
+/* Component-specific styles */
 </style>
