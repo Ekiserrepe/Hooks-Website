@@ -28,10 +28,10 @@
         <button @click="getSome" 
                 class="btn-primary-modern text-lg px-8 py-3">
           <i class="fas fa-coins mr-2"></i>
-          Get Testnet Funds
+          Get Testnet XAH
         </button>
         <p class="text-gray-500 dark:text-gray-400 text-sm mt-2">
-          Click to generate a new testnet account with funds
+          Click to generate a new testnet account with XAH funds.
         </p>
       </div>
       
